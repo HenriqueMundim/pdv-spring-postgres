@@ -17,13 +17,14 @@ public class User {
     private String id;
 
     @EqualsAndHashCode.Exclude
-    @Column(length = 100)
+    @Column(length = 100, nullable = false)
     private String name;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
     @EqualsAndHashCode.Exclude
+    @Column(nullable = false)
     private String password;
 
 }
