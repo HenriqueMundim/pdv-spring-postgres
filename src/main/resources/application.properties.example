@@ -1,4 +1,4 @@
-spring.application.name=yourDb
+spring.application.name=pdv
 spring.datasource.driver-class-name=org.postgresql.Driver
 spring.jpa.hibernate.ddl-auto=update
 
