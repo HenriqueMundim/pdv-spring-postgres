@@ -3,6 +3,9 @@ package com.personalprojects.pdv.domain.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
@@ -26,5 +29,8 @@ public class User {
     @EqualsAndHashCode.Exclude
     @Column(nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<>();
 
 }
