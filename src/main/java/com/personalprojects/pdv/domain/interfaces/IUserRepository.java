@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IUserRepository {
     List<User> findAll();
+    User findById(String id);
 }

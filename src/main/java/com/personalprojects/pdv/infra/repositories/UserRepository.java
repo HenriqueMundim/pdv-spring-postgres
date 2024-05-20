@@ -18,4 +18,9 @@ public class UserRepository implements IUserRepository {
     public List<User> findAll() {
         return userJpaDao.findAll();
     }
+
+    @Override
+    public User findById(String id) {
+        return userJpaDao.findById(id).orElse(null);
+    }
 }
