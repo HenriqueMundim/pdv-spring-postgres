@@ -1,0 +1,28 @@
+package com.personalprojects.pdv.infra.mappers;
+
+import com.personalprojects.pdv.domain.entities.User;
+import com.personalprojects.pdv.infra.Dto.UserDto;
+
+public class UserMapper {
+
+    public static UserDto toDto(User userEntity) {
+        UserDto userDto = new UserDto();
+        userDto.setId(userEntity.getId());
+        userDto.setName(userEntity.getName());
+        userDto.setEmail(userEntity.getEmail());
+        userDto.setPassword(userEntity.getPassword());
+        userDto.setOrders(userEntity.getOrders());
+
+        return userDto;
+    }
+
+    public static User toEntity(UserDto userDto) {
+        User userEntity = new User();
+        userEntity.setId(userDto.getId());
+        userEntity.setName(userDto.getName());
+        userEntity.setEmail(userDto.getEmail());
+        userEntity.setPassword(userDto.getPassword());
+
+        return userEntity;
+    }
+}
