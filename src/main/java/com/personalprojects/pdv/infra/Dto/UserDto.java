@@ -1,5 +1,6 @@
 package com.personalprojects.pdv.infra.Dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.personalprojects.pdv.domain.entities.Order;
 import lombok.*;
 
@@ -22,6 +23,7 @@ public class UserDto {
     private String email;
 
     @EqualsAndHashCode.Exclude
+    @JsonIgnore
     private String password;
 
     private List<Order> orders = new ArrayList<>();

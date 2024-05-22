@@ -30,7 +30,7 @@ public class UserRepository implements IUserRepository {
         return userJpaDao.findByEmail(email);
     }
 
-    public User create(User user) {
-        return  userJpaDao.save(user);
+    public User save(User user) {
+        return userJpaDao.save(user);
     }
 }

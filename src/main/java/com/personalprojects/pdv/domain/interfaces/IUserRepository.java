@@ -9,5 +9,5 @@ public interface IUserRepository {
     List<User> findAll();
     User findById(String id);
     Optional<User> findByEmail(String email);
-    User create(User user);
+    User save(User user);
 }

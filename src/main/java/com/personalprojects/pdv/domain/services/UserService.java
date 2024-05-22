@@ -6,6 +6,7 @@ import com.personalprojects.pdv.domain.errors.ResourceNotFoundException;
 import com.personalprojects.pdv.infra.Dto.UserDto;
 import com.personalprojects.pdv.infra.mappers.UserMapper;
 import com.personalprojects.pdv.infra.repositories.UserRepository;
+import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +39,6 @@ public class UserService {
             throw new ResourceAlreadyExistsException("Email already registered");
         }
 
-        return UserMapper.toDto(userRepository.create(UserMapper.toEntity(userDto)));
+        return UserMapper.toDto(userRepository.save(UserMapper.toEntity(userDto)));
     }
 }
