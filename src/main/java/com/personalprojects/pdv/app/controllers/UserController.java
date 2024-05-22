@@ -18,21 +18,31 @@ public class UserController {
     public UserService userService;
 
     @GetMapping(
-                    value = "/{id}",
-                    produces = {"application/json", "application/xml", "application/x-yaml"}
-                )
+            value = "/{id}",
+            produces = {"application/json", "application/xml", "application/x-yaml"}
+    )
     public ResponseEntity<UserDto> findById(@PathVariable String id) {
         UserDto user = userService.findById(id);
         return ResponseEntity.ok().body(user);
     }
 
     @PostMapping(
-                    consumes = {"application/json", "application/xml", "application/x-yaml"},
-                    produces = {"application/json", "application/xml", "application/x-yaml"}
-                )
+            consumes = {"application/json", "application/xml", "application/x-yaml"},
+            produces = {"application/json", "application/xml", "application/x-yaml"}
+    )
     public ResponseEntity<UserDto> create(@RequestBody UserDto userDto) {
         UserDto newUser = userService.create(userDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+    }
+
+    @DeleteMapping(
+            value = "/{id}",
+            consumes = {"application/json", "application/xml", "application/x-yaml"}
+    )
+    public ResponseEntity<?> delete(@PathVariable String id) {
+        userService.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 }

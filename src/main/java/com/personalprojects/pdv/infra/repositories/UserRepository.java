@@ -33,4 +33,8 @@ public class UserRepository implements IUserRepository {
     public User save(User user) {
         return userJpaDao.save(user);
     }
+
+    public void delete(String id) {
+        userJpaDao.deleteById(id);
+    }
 }

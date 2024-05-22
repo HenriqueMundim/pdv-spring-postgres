@@ -50,4 +50,14 @@ public class UserService {
 
         return newUser;
     }
+
+    public void delete(String id) {
+        User user = userRepository.findById(id);
+
+        if (user == null) {
+            throw new ResourceNotFoundException("User with this ID not found");
+        }
+
+        userRepository.delete(id);
+    }
 }
