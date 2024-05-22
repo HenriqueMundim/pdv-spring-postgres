@@ -1,4 +1,4 @@
-package com.personalprojects.pdv.infra.Dto;
+package com.personalprojects.pdv.infra.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.personalprojects.pdv.domain.entities.Order;

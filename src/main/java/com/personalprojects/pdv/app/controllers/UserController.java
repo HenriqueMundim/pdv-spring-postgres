@@ -2,7 +2,7 @@ package com.personalprojects.pdv.app.controllers;
 
 import com.personalprojects.pdv.domain.entities.User;
 import com.personalprojects.pdv.domain.services.UserService;
-import com.personalprojects.pdv.infra.Dto.UserDto;
+import com.personalprojects.pdv.infra.dto.UserDto;
 import com.personalprojects.pdv.infra.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

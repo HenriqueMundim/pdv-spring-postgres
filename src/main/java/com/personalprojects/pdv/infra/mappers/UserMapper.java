@@ -1,7 +1,7 @@
 package com.personalprojects.pdv.infra.mappers;
 
 import com.personalprojects.pdv.domain.entities.User;
-import com.personalprojects.pdv.infra.Dto.UserDto;
+import com.personalprojects.pdv.infra.dto.UserDto;
 
 public class UserMapper {
 
