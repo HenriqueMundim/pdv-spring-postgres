@@ -13,8 +13,19 @@ public class ResourceExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<StandardException> resourceNotFound(ResourceNotFoundException exception, WebRequest request) {
-        StandardException exceptionResponse = new StandardException(Instant.now(), request.getDescription(false).split("=")[1], exception.getMessage());
+        StandardException exceptionResponse = new StandardException(Instant.now(),
+                                                    request.getDescription(false).split("=")[1],
+                                                    exception.getMessage());
 
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
+    }
+
+    @ExceptionHandler(ResourceAlreadyExistsException.class)
+    public ResponseEntity<StandardException> resourceAlreadyExists(ResourceAlreadyExistsException exception, WebRequest request) {
+        StandardException exceptionResponse = new StandardException(Instant.now(),
+                request.getDescription(false).split("=")[1],
+                exception.getMessage());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionResponse);
     }
 }

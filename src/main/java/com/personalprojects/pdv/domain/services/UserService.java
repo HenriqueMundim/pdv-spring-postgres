@@ -1,7 +1,10 @@
 package com.personalprojects.pdv.domain.services;
 
 import com.personalprojects.pdv.domain.entities.User;
+import com.personalprojects.pdv.domain.errors.ResourceAlreadyExistsException;
 import com.personalprojects.pdv.domain.errors.ResourceNotFoundException;
+import com.personalprojects.pdv.infra.Dto.UserDto;
+import com.personalprojects.pdv.infra.mappers.UserMapper;
 import com.personalprojects.pdv.infra.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,5 +29,15 @@ public class UserService {
         }
 
         return user;
+    }
+
+    public UserDto create(UserDto userDto) {
+        User user = userRepository.findByEmail(userDto.getEmail()).orElse(null);
+
+        if (user != null) {
+            throw new ResourceAlreadyExistsException("Email already registered");
+        }
+
+        return UserMapper.toDto(userRepository.create(UserMapper.toEntity(userDto)));
     }
 }

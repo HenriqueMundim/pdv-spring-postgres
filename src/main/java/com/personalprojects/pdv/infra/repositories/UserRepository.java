@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepository implements IUserRepository {
@@ -22,5 +23,14 @@ public class UserRepository implements IUserRepository {
     @Override
     public User findById(String id) {
         return userJpaDao.findById(id).orElse(null);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userJpaDao.findByEmail(email);
+    }
+
+    public User create(User user) {
+        return  userJpaDao.save(user);
     }
 }
