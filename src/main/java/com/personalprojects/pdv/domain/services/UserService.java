@@ -8,7 +8,6 @@ import com.personalprojects.pdv.infra.dto.UserDto;
 import com.personalprojects.pdv.infra.mappers.UserMapper;
 import com.personalprojects.pdv.infra.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
