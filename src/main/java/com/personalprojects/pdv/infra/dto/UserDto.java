@@ -1,9 +1,14 @@
 package com.personalprojects.pdv.infra.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.personalprojects.pdv.domain.entities.Order;
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +17,14 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
-public class UserDto {
+@JsonPropertyOrder(value = { "id", "name", "email" })
+public class UserDto extends RepresentationModel<UserDto> implements Serializable {
 
-    private String id;
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    @JsonProperty("id")
+    private String key;
 
     @EqualsAndHashCode.Exclude
     private String name;
@@ -23,9 +32,18 @@ public class UserDto {
     private String email;
 
     @EqualsAndHashCode.Exclude
-    @JsonIgnore
     private String password;
 
+    @JsonIgnore
     private List<Order> orders = new ArrayList<>();
+
+    @JsonIgnore
+    public String getPassword() {
+        return password;
+    }
+    @JsonProperty
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
 }
