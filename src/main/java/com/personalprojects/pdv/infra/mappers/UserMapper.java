@@ -1,6 +1,7 @@
 package com.personalprojects.pdv.infra.mappers;
 
 import com.personalprojects.pdv.domain.entities.User;
+import com.personalprojects.pdv.infra.dto.CreateUserRequest;
 import com.personalprojects.pdv.infra.dto.UserDto;
 
 public class UserMapper {
@@ -24,5 +25,15 @@ public class UserMapper {
         userEntity.setPassword(userDto.getPassword());
 
         return userEntity;
+    }
+
+    public static UserDto RequestToDto(CreateUserRequest user) {
+        UserDto userDto = new UserDto();
+
+        userDto.setName(user.getName());
+        userDto.setEmail(user.getEmail());
+        userDto.setPassword(user.getPassword());
+
+        return userDto;
     }
 }

@@ -6,5 +6,4 @@ spring.datasource.url=yourUrl
 spring.datasource.username=yourUser
 spring.datasource.password=yourPassword
 
-spring.jpa.database-plataform=postgres
 spring.jpa.show-sql=false

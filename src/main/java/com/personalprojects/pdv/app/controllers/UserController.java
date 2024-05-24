@@ -1,7 +1,9 @@
 package com.personalprojects.pdv.app.controllers;
 
 import com.personalprojects.pdv.domain.services.UserService;
+import com.personalprojects.pdv.infra.dto.CreateUserRequest;
 import com.personalprojects.pdv.infra.dto.UserDto;
+import com.personalprojects.pdv.infra.mappers.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/users")
+
 public class UserController {
 
     @Autowired
@@ -27,8 +30,8 @@ public class UserController {
             consumes = {"application/json", "application/xml", "application/x-yaml"},
             produces = {"application/json", "application/xml", "application/x-yaml"}
     )
-    public ResponseEntity<UserDto> create(@RequestBody UserDto userDto) {
-        UserDto newUser = userService.create(userDto);
+    public ResponseEntity<UserDto> create(@RequestBody CreateUserRequest request) {
+        UserDto newUser = userService.create(UserMapper.RequestToDto(request));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }
