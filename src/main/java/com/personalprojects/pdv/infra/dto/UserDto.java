@@ -3,8 +3,11 @@ package com.personalprojects.pdv.infra.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.personalprojects.pdv.domain.entities.Order;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
+import org.springframework.hateoas.Links;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serial;
@@ -41,9 +44,15 @@ public class UserDto extends RepresentationModel<UserDto> implements Serializabl
     public String getPassword() {
         return password;
     }
+
     @JsonProperty
     public void setPassword(String password) {
         this.password = password;
     }
 
+    @Override
+    @Schema(hidden = true)
+    public Links getLinks() {
+        return super.getLinks();
+    }
 }
