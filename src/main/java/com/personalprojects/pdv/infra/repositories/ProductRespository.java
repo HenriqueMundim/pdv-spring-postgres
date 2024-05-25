@@ -7,6 +7,8 @@ import com.personalprojects.pdv.infra.dto.ProductDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public class ProductRespository implements IProductRespository {
 
@@ -16,5 +18,10 @@ public class ProductRespository implements IProductRespository {
     @Override
     public Product create(Product product) {
         return productJpaDao.save(product);
+    }
+
+    @Override
+    public Optional<Product> findById(String id) {
+        return productJpaDao.findById(id);
     }
 }

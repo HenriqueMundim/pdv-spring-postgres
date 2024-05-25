@@ -6,13 +6,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Entity
 @Table(name = "products")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-public class Product {
+public class Product implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -26,4 +32,5 @@ public class Product {
 
     @Column(name = "image_url")
     private String imageUrl;
+
 }

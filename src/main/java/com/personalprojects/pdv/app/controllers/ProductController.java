@@ -1,6 +1,7 @@
 package com.personalprojects.pdv.app.controllers;
 
 import com.personalprojects.pdv.domain.entities.Product;
+import com.personalprojects.pdv.domain.errors.StandardException;
 import com.personalprojects.pdv.domain.services.ProductService;
 import com.personalprojects.pdv.infra.dto.ProductDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,10 +12,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Product")
 @RestController
@@ -23,6 +21,40 @@ public class ProductController {
 
     @Autowired
     private ProductService service;
+
+    @Operation(
+            description = "This endpoint is responsible for get a product by id",
+            summary = "Get product by ID",
+            responses = {
+                    @ApiResponse(
+                            description = "User successful found",
+                            responseCode = "200",
+                            content = {
+                                    @Content(
+                                            schema = @Schema(implementation = ProductDto.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            description = "User with this ID not found",
+                            responseCode = "404",
+                            content = {
+                                    @Content(
+                                            schema = @Schema(implementation = StandardException.class)
+                                    )
+                            }
+                    )
+            }
+    )
+    @GetMapping(
+            value = "/{id}",
+            produces = {"application/json", "application/xml", "application/x-yaml"}
+    )
+    public ResponseEntity<ProductDto> findById(@PathVariable String id) {
+        ProductDto product = service.findById(id);
+
+        return ResponseEntity.ok().body(product);
+    }
 
     @Operation(
             description = "This endpoint is responsible for register a new product in our system",

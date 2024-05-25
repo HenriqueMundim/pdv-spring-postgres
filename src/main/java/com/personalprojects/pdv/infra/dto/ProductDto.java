@@ -1,5 +1,4 @@
 package com.personalprojects.pdv.infra.dto;
-
 import lombok.*;
 
 @NoArgsConstructor
@@ -19,4 +18,5 @@ public class ProductDto {
 
     @EqualsAndHashCode.Exclude
     private String imageUrl;
+
 }
