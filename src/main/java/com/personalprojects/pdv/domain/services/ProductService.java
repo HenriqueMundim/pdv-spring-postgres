@@ -4,7 +4,7 @@ import com.personalprojects.pdv.domain.entities.Product;
 import com.personalprojects.pdv.domain.errors.ResourceNotFoundException;
 import com.personalprojects.pdv.infra.dto.ProductDto;
 import com.personalprojects.pdv.infra.mappers.ProductMapper;
-import com.personalprojects.pdv.infra.repositories.ProductRespository;
+import com.personalprojects.pdv.infra.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class ProductService {
 
     @Autowired
-    private ProductRespository repository;
+    private ProductRepository repository;
 
     public ProductDto findById(String id) {
         Product product = repository.findById(id).orElse(null);
@@ -29,4 +29,16 @@ public class ProductService {
 
         return ProductMapper.toDto(newProduct);
     }
+
+    public void delete(String id) {
+
+        Product product = repository.findById(id).orElse(null);
+
+        if (product == null) {
+            throw new ResourceNotFoundException("User with this ID not found");
+        }
+
+        repository.delete(id);
+    }
+
 }

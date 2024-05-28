@@ -1,6 +1,5 @@
 package com.personalprojects.pdv.app.controllers;
 
-import com.personalprojects.pdv.domain.entities.Product;
 import com.personalprojects.pdv.domain.errors.StandardException;
 import com.personalprojects.pdv.domain.services.ProductService;
 import com.personalprojects.pdv.infra.dto.ProductDto;
@@ -77,5 +76,35 @@ public class ProductController {
         ProductDto newProduct = service.create(product);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newProduct);
+    }
+
+    @Operation(
+            description = "This endpoint is responsible for delete a product in our system",
+            summary = "Delete a product",
+            responses = {
+                    @ApiResponse(
+                            description = "Product not found",
+                            responseCode = "404",
+                            content = {
+                                    @Content(
+                                            schema = @Schema(implementation = StandardException.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            description = "Product successful deleted",
+                            responseCode = "204",
+                            content = @Content
+                    )
+            }
+    )
+    @DeleteMapping(
+            value = "/{id}",
+            produces = {"application/json", "application/xml", "application/x-yaml"}
+    )
+    public ResponseEntity<?> delete(@PathVariable String id) {
+        service.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 }
