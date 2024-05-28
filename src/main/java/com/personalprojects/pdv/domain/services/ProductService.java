@@ -1,5 +1,6 @@
 package com.personalprojects.pdv.domain.services;
 
+import com.personalprojects.pdv.app.controllers.ProductController;
 import com.personalprojects.pdv.domain.entities.Product;
 import com.personalprojects.pdv.domain.errors.ResourceNotFoundException;
 import com.personalprojects.pdv.infra.dto.ProductDto;
@@ -7,6 +8,9 @@ import com.personalprojects.pdv.infra.mappers.ProductMapper;
 import com.personalprojects.pdv.infra.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class ProductService {
@@ -21,13 +25,17 @@ public class ProductService {
             throw new ResourceNotFoundException("Product with this ID not found");
         }
 
-        return ProductMapper.toDto(product);
+        ProductDto productDto = ProductMapper.toDto(product);
+        productDto.add(linkTo(methodOn(ProductController.class).findById(productDto.getId())).withSelfRel());
+
+        return productDto;
     }
 
     public ProductDto create(ProductDto productDto) {
         Product newProduct = repository.create(ProductMapper.toEntity(productDto));
-
-        return ProductMapper.toDto(newProduct);
+        ProductDto product = ProductMapper.toDto(newProduct);
+        product.add(linkTo(methodOn(ProductController.class).findById(product.getId())).withSelfRel());
+        return product;
     }
 
     public void delete(String id) {
