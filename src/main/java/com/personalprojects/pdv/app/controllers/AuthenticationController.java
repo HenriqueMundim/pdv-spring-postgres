@@ -3,6 +3,7 @@ package com.personalprojects.pdv.app.controllers;
 import com.personalprojects.pdv.domain.entities.User;
 import com.personalprojects.pdv.domain.errors.ResourceAlreadyExistsException;
 import com.personalprojects.pdv.domain.services.AuthorizationService;
+import com.personalprojects.pdv.domain.services.TokenService;
 import com.personalprojects.pdv.infra.dto.AuthenticationDTO;
 import com.personalprojects.pdv.infra.dto.RegisterUserRequestDTO;
 import com.personalprojects.pdv.infra.dto.RegisterUserResponseDTO;
@@ -32,13 +33,18 @@ public class AuthenticationController {
     @Autowired
     UserRepository repository;
 
+    @Autowired
+    TokenService tokenService;
+
     @PostMapping(value = "/login")
-    public ResponseEntity<AuthenticationDTO> login(@RequestBody @Valid AuthenticationDTO data) {
+    public ResponseEntity<String> login(@RequestBody @Valid AuthenticationDTO data) {
 
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.getUsername(), data.getPassword());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        String token = tokenService.generateToken((User) auth.getPrincipal());
+
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping(value = "/register")
@@ -57,6 +63,6 @@ public class AuthenticationController {
 
         User newUser = repository.save(new User(data.getName(), data.getUsername(), data.getEmail(), encryptedPassword, data.getRole()));
 
-        return ResponseEntity.ok(new RegisterUserResponseDTO(newUser.getName(), newUser.getEmail(), newUser.getEmail()));
+        return ResponseEntity.ok(new RegisterUserResponseDTO(newUser.getName(), newUser.getUsername(), newUser.getEmail()));
     }
 }
