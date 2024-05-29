@@ -3,7 +3,6 @@ package com.personalprojects.pdv.infra.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.personalprojects.pdv.domain.entities.Order;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
@@ -21,7 +20,7 @@ import java.util.List;
 @Getter
 @Setter
 @JsonPropertyOrder(value = { "id", "name", "email" })
-public class UserDto extends RepresentationModel<UserDto> implements Serializable {
+public class UserDTO extends RepresentationModel<UserDTO> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -29,12 +28,10 @@ public class UserDto extends RepresentationModel<UserDto> implements Serializabl
     @JsonProperty("id")
     private String key;
 
-    @EqualsAndHashCode.Exclude
     private String name;
 
     private String email;
 
-    @EqualsAndHashCode.Exclude
     private String password;
 
     @JsonIgnore

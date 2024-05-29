@@ -2,7 +2,7 @@ package com.personalprojects.pdv.app.controllers;
 
 import com.personalprojects.pdv.domain.errors.StandardException;
 import com.personalprojects.pdv.domain.services.ProductService;
-import com.personalprojects.pdv.infra.dto.ProductDto;
+import com.personalprojects.pdv.infra.dto.ProductDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -30,7 +30,7 @@ public class ProductController {
                             responseCode = "200",
                             content = {
                                     @Content(
-                                            schema = @Schema(implementation = ProductDto.class)
+                                            schema = @Schema(implementation = ProductDTO.class)
                                     )
                             }
                     ),
@@ -49,8 +49,8 @@ public class ProductController {
             value = "/{id}",
             produces = {"application/json", "application/xml", "application/x-yaml"}
     )
-    public ResponseEntity<ProductDto> findById(@PathVariable String id) {
-        ProductDto product = service.findById(id);
+    public ResponseEntity<ProductDTO> findById(@PathVariable String id) {
+        ProductDTO product = service.findById(id);
 
         return ResponseEntity.ok().body(product);
     }
@@ -63,7 +63,7 @@ public class ProductController {
                             description = "Product successful registered",
                             responseCode = "201",
                             content = {
-                                    @Content(schema = @Schema(implementation = ProductDto.class))
+                                    @Content(schema = @Schema(implementation = ProductDTO.class))
                             }
                     )
             }
@@ -72,8 +72,8 @@ public class ProductController {
             consumes = {"application/json", "application/xml", "application/x-yaml"},
             produces = {"application/json", "application/xml", "application/x-yaml"}
     )
-    public ResponseEntity<ProductDto> create(@RequestBody ProductDto product) {
-        ProductDto newProduct = service.create(product);
+    public ResponseEntity<ProductDTO> create(@RequestBody ProductDTO product) {
+        ProductDTO newProduct = service.create(product);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(newProduct);
     }
