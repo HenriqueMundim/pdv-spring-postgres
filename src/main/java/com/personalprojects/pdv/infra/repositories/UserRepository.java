@@ -4,6 +4,7 @@ import com.personalprojects.pdv.domain.entities.User;
 import com.personalprojects.pdv.domain.interfaces.IUserRepository;
 import com.personalprojects.pdv.infra.daos.UserJpaDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,6 +24,11 @@ public class UserRepository implements IUserRepository {
     @Override
     public User findById(String id) {
         return userJpaDao.findById(id).orElse(null);
+    }
+
+    @Override
+    public UserDetails findByUsername(String username) {
+        return userJpaDao.findByUsername(username);
     }
 
     @Override
