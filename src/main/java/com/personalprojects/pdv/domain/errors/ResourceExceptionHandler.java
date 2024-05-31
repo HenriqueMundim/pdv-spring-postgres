@@ -2,6 +2,7 @@ package com.personalprojects.pdv.domain.errors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -42,5 +43,15 @@ public class ResourceExceptionHandler {
                 );
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exceptionResponse);
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<StandardException> authenticationException(AuthenticationException exception, WebRequest request) {
+        StandardException exceptionResponse = new StandardException(Instant.now(),
+            request.getDescription(false).split("=")[1],
+            "username or password are incorrect"
+        );
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(exceptionResponse);
     }
 }
