@@ -39,7 +39,7 @@ public class RegisterUserRequestDTO implements Serializable {
     @NotNull(message = "Password is required")
     @NotBlank(message = "Password is required")
     @Size(min = 8, max = 16, message = "Password must have between 8 and 16 characters")
-    @Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).*", message = "Password must have at least 1 uppercase character, 1 number and 1 special character")
+    @Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).*", message = "Password must have at least 1 uppercase character 1 number and 1 special character")
     @Schema(examples = "Password@123")
     private String password;
 

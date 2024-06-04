@@ -9,7 +9,6 @@ import java.util.Locale;
 public class PdvApplication {
 
 	public static void main(String[] args) {
-		Locale.setDefault(Locale.US);
 		SpringApplication.run(PdvApplication.class, args);
 	}
 

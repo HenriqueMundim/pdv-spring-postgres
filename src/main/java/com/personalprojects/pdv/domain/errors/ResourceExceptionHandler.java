@@ -1,8 +1,10 @@
 package com.personalprojects.pdv.domain.errors;
 
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,6 +13,7 @@ import org.springframework.web.context.request.WebRequest;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -35,8 +38,10 @@ public class ResourceExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<StandardException> methodArgumentNotValidException(MethodArgumentNotValidException exception, WebRequest request) {
-        List<String> errorMessages = new ArrayList<>();
-        exception.getBindingResult().getAllErrors().forEach(objectError -> errorMessages.add(objectError.getDefaultMessage()));
+        List<String> errorMessages = exception.getBindingResult().getAllErrors()
+                .stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .toList();
         StandardException exceptionResponse = new StandardException(Instant.now(),
                 request.getDescription(false).split("=")[1],
                 errorMessages.toString()
