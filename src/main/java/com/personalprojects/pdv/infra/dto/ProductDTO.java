@@ -9,7 +9,7 @@ import org.springframework.hateoas.RepresentationModel;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class ProductDto extends RepresentationModel<ProductDto> {
+public class ProductDTO extends RepresentationModel<ProductDTO> {
 
     private String id;
 

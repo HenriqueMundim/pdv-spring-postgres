@@ -3,7 +3,7 @@ package com.personalprojects.pdv.domain.services;
 import com.personalprojects.pdv.app.controllers.ProductController;
 import com.personalprojects.pdv.domain.entities.Product;
 import com.personalprojects.pdv.domain.errors.ResourceNotFoundException;
-import com.personalprojects.pdv.infra.dto.ProductDto;
+import com.personalprojects.pdv.infra.dto.ProductDTO;
 import com.personalprojects.pdv.infra.mappers.ProductMapper;
 import com.personalprojects.pdv.infra.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,22 +18,22 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
-    public ProductDto findById(String id) {
+    public ProductDTO findById(String id) {
         Product product = repository.findById(id).orElse(null);
 
         if (product == null) {
             throw new ResourceNotFoundException("Product with this ID not found");
         }
 
-        ProductDto productDto = ProductMapper.toDto(product);
+        ProductDTO productDto = ProductMapper.toDto(product);
         productDto.add(linkTo(methodOn(ProductController.class).findById(productDto.getId())).withSelfRel());
 
         return productDto;
     }
 
-    public ProductDto create(ProductDto productDto) {
+    public ProductDTO create(ProductDTO productDto) {
         Product newProduct = repository.create(ProductMapper.toEntity(productDto));
-        ProductDto product = ProductMapper.toDto(newProduct);
+        ProductDTO product = ProductMapper.toDto(newProduct);
         product.add(linkTo(methodOn(ProductController.class).findById(product.getId())).withSelfRel());
         return product;
     }
