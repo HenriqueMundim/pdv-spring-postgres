@@ -37,19 +37,6 @@ public class UserService {
         return userFound;
     }
 
-    public UserDTO create(UserDTO userDto) {
-        User user = userRepository.findByEmail(userDto.getEmail()).orElse(null);
-
-        if (user != null) {
-            throw new ResourceAlreadyExistsException("Email already registered");
-        }
-
-        UserDTO newUser =  UserMapper.toDto(userRepository.save(UserMapper.toEntity(userDto)));
-        newUser.add(linkTo(methodOn(UserController.class).findById(newUser.getKey())).withSelfRel());
-
-        return newUser;
-    }
-
     public void delete(String id) {
         User user = userRepository.findById(id);
 

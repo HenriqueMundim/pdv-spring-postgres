@@ -49,35 +49,6 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
-//    @Operation(
-//            description = "This endpoint register a new user in our system",
-//            summary = "Register a new user",
-//            responses = {
-//                    @ApiResponse(
-//                            description = "User registered successful",
-//                            responseCode = "201"
-//                    ),
-//                    @ApiResponse(
-//                            description = "User with this email already exists",
-//                            responseCode = "400",
-//                            content = {
-//                                    @Content(
-//                                            schema = @Schema(implementation = StandardException.class)
-//                                    )
-//                            }
-//                    )
-//            }
-//    )
-//    @PostMapping(
-//            consumes = {"application/json", "application/xml", "application/x-yaml"},
-//            produces = {"application/json", "application/xml", "application/x-yaml"}
-//    )
-//    public ResponseEntity<UserDto> create(@RequestBody RegisterUserRequestDTO data) {
-//        UserDto newUser = userService.create(UserMapper.createUserToDto(data));
-//
-//        return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
-//    }
-
     @Operation(
             description = "This endpoint delete one user in our system",
             summary = "Delete a user",

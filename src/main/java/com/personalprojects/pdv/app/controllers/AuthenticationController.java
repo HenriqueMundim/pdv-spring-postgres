@@ -83,7 +83,35 @@ public class AuthenticationController {
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
-    @PostMapping(value = "/register")
+    @Operation(
+            description = "This endpoint is responsible to register a new user",
+            summary = "Register a new user",
+            responses = {
+                    @ApiResponse(
+                            description = "User successful registered",
+                            responseCode = "201",
+                            content = {
+                                    @Content(
+                                            schema = @Schema(implementation = RegisterUserResponseDTO.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            description = "User already exists",
+                            responseCode = "400",
+                            content = {
+                                    @Content(
+                                            schema = @Schema(implementation = StandardException.class)
+                                    )
+                            }
+                    )
+            }
+    )
+    @PostMapping(
+            value = "/register",
+            consumes = {"application/json", "application/xml", "application/x-yaml"},
+            produces = {"application/json", "application/xml", "application/x-yaml"}
+    )
     public ResponseEntity<RegisterUserResponseDTO> register(@RequestBody @Valid RegisterUserRequestDTO data) {
         User userByEmail = repository.findByEmail(data.getEmail()).orElse(null);
         UserDetails userByUsername = repository.findByUsername(data.getUsername());
