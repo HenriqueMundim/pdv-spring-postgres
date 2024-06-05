@@ -14,6 +14,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +70,7 @@ public class AuthenticationController {
                     )
             }
     )
+    @SecurityRequirements
     @PostMapping(
             value = "/login",
             consumes = {"application/json", "application/xml", "application/x-yaml"},
@@ -107,6 +110,7 @@ public class AuthenticationController {
                     )
             }
     )
+    @SecurityRequirements
     @PostMapping(
             value = "/register",
             consumes = {"application/json", "application/xml", "application/x-yaml"},
@@ -127,6 +131,6 @@ public class AuthenticationController {
 
         User newUser = repository.save(new User(data.getName(), data.getUsername(), data.getEmail(), encryptedPassword, data.getRole()));
 
-        return ResponseEntity.ok(new RegisterUserResponseDTO(newUser.getName(), newUser.getUsername(), newUser.getEmail()));
+        return ResponseEntity.ok(new RegisterUserResponseDTO(newUser.getId(), newUser.getName(), newUser.getEmail(), newUser.getUsername()));
     }
 }
