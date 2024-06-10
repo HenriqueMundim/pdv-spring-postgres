@@ -44,7 +44,7 @@ public class TokenService {
                     .getSubject();
 
         } catch (JWTVerificationException exception){
-            throw new TokenVerificationException("Invalid or expired token, try singIn before access this resource");
+            throw new TokenVerificationException(exception.getMessage());
         }
     }
 
