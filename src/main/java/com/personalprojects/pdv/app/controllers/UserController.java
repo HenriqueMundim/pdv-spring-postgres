@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
+import java.util.UUID;
+
 @RestController
 @RequestMapping(value = "/users")
 @SecurityRequirement(name = "bearerAuth")
@@ -46,7 +49,7 @@ public class UserController {
             value = "/{id}",
             produces = {"application/json", "application/xml", "application/x-yaml"}
     )
-    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+    public ResponseEntity<UserDTO> findById(@PathVariable UUID id) {
         UserDTO user = userService.findById(id);
         return ResponseEntity.ok().body(user);
     }
@@ -76,7 +79,7 @@ public class UserController {
             consumes = {"application/json", "application/xml", "application/x-yaml"},
             produces = {"application/json", "application/xml", "application/x-yaml"}
     )
-    public ResponseEntity<?> delete(@PathVariable String id) {
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
         userService.delete(id);
 
         return ResponseEntity.noContent().build();
