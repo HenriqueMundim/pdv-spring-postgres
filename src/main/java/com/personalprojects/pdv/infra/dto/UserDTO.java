@@ -13,6 +13,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @NoArgsConstructor
@@ -26,7 +27,7 @@ public class UserDTO extends RepresentationModel<UserDTO> implements Serializabl
     private static final long serialVersionUID = 1L;
 
     @JsonProperty("id")
-    private String key;
+    private UUID key;
 
     private String name;
 

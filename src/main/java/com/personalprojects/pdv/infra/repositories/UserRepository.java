@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public class UserRepository implements IUserRepository {
@@ -22,7 +23,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public User findById(String id) {
+    public User findById(UUID id) {
         return userJpaDao.findById(id).orElse(null);
     }
 
@@ -40,7 +41,7 @@ public class UserRepository implements IUserRepository {
         return userJpaDao.save(user);
     }
 
-    public void delete(String id) {
+    public void delete(UUID id) {
         userJpaDao.deleteById(id);
     }
 }

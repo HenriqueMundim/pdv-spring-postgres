@@ -4,6 +4,8 @@ import lombok.*;
 import org.springframework.hateoas.Links;
 import org.springframework.hateoas.RepresentationModel;
 
+import java.util.UUID;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -11,7 +13,7 @@ import org.springframework.hateoas.RepresentationModel;
 @EqualsAndHashCode
 public class ProductDTO extends RepresentationModel<ProductDTO> {
 
-    private String id;
+    private UUID id;
 
     @EqualsAndHashCode.Exclude
     private String description;
