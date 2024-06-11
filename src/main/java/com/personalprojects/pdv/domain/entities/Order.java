@@ -39,6 +39,10 @@ public class Order {
     @OneToMany(mappedBy = "id.order")
     private Set<OrderItem> items = new HashSet<>();
 
+    public Order(Instant date, User user) {
+        this.date = date;
+        this.client = user;
+    }
 
     public Double getTotalPrice() {
         double sum = 0.0;

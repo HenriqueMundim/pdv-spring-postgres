@@ -1,0 +1,35 @@
+package com.personalprojects.pdv.domain.services;
+
+import com.personalprojects.pdv.domain.entities.Order;
+import com.personalprojects.pdv.domain.entities.User;
+import com.personalprojects.pdv.domain.errors.ResourceNotFoundException;
+import com.personalprojects.pdv.infra.dto.RegisterOrderRequestDTO;
+import com.personalprojects.pdv.infra.repositories.OrderRepository;
+import com.personalprojects.pdv.infra.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class OrderService {
+
+    private final OrderRepository repository;
+    private final UserRepository userRepository;
+
+    @Autowired
+    public OrderService(OrderRepository repository, UserRepository userRepository) {
+        this.repository = repository;
+        this.userRepository = userRepository;
+    }
+
+    public Order create(RegisterOrderRequestDTO order) {
+        User user = userRepository.findById(order.getUserId());
+
+        if (user == null) {
+            throw new ResourceNotFoundException("Not possible create a new order because a user with this ID not found");
+        }
+
+        Order newOrder = repository.save(new Order(order.getDate(), user));
+
+        return newOrder;
+    }
+}
