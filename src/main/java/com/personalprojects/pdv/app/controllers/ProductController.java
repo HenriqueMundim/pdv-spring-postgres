@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @Tag(name = "Product")
 @RestController
 @RequestMapping("/products")
@@ -49,7 +51,7 @@ public class ProductController {
             value = "/{id}",
             produces = {"application/json", "application/xml", "application/x-yaml"}
     )
-    public ResponseEntity<ProductDTO> findById(@PathVariable String id) {
+    public ResponseEntity<ProductDTO> findById(@PathVariable UUID id) {
         ProductDTO product = service.findById(id);
 
         return ResponseEntity.ok().body(product);
@@ -102,7 +104,7 @@ public class ProductController {
             value = "/{id}",
             produces = {"application/json", "application/xml", "application/x-yaml"}
     )
-    public ResponseEntity<?> delete(@PathVariable String id) {
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
         service.delete(id);
 
         return ResponseEntity.noContent().build();

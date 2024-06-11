@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public class ProductRepository implements IProductRepository {
@@ -20,12 +21,12 @@ public class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public Optional<Product> findById(String id) {
+    public Optional<Product> findById(UUID id) {
         return productJpaDao.findById(id);
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(UUID id) {
         productJpaDao.deleteById(id);
     }
 }

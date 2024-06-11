@@ -10,7 +10,9 @@ import com.personalprojects.pdv.infra.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -25,7 +27,7 @@ public class UserService {
         return  userRepository.findAll();
     }
 
-    public UserDTO findById(String id) {
+    public UserDTO findById(UUID id) {
         User user = userRepository.findById(id);
 
         if (user == null) {
@@ -37,7 +39,7 @@ public class UserService {
         return userFound;
     }
 
-    public void delete(String id) {
+    public void delete(UUID id) {
         User user = userRepository.findById(id);
 
         if (user == null) {

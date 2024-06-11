@@ -7,9 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface UserJpaDao extends JpaRepository<User, String> {
+public interface UserJpaDao extends JpaRepository<User, UUID> {
     @Query(value = "SELECT us FROM User us WHERE us.email = ?1")
     Optional<User> findByEmail(String email);
 

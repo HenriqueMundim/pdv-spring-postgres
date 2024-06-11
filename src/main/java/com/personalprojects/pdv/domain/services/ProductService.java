@@ -9,6 +9,8 @@ import com.personalprojects.pdv.infra.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -18,7 +20,7 @@ public class ProductService {
     @Autowired
     private ProductRepository repository;
 
-    public ProductDTO findById(String id) {
+    public ProductDTO findById(UUID id) {
         Product product = repository.findById(id).orElse(null);
 
         if (product == null) {
@@ -38,7 +40,7 @@ public class ProductService {
         return product;
     }
 
-    public void delete(String id) {
+    public void delete(UUID id) {
 
         Product product = repository.findById(id).orElse(null);
 
