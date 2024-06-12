@@ -1,5 +1,6 @@
 package com.personalprojects.pdv.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +30,7 @@ public class Order {
     @DateTimeFormat(pattern = "dd/MM/yyyy 'T' HH:mm:ss")
     private Instant date;
 
-    @Column(nullable = false, name = "total_price")
+    @Transient
     private Double totalPrice;
 
     @ManyToOne
@@ -52,4 +53,5 @@ public class Order {
 
         return sum;
     }
+
 }

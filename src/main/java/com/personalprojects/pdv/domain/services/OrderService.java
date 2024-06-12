@@ -4,10 +4,14 @@ import com.personalprojects.pdv.domain.entities.Order;
 import com.personalprojects.pdv.domain.entities.User;
 import com.personalprojects.pdv.domain.errors.ResourceNotFoundException;
 import com.personalprojects.pdv.infra.dto.RegisterOrderRequestDTO;
+import com.personalprojects.pdv.infra.dto.RegisterOrderResponseDTO;
+import com.personalprojects.pdv.infra.mappers.OrderMapper;
 import com.personalprojects.pdv.infra.repositories.OrderRepository;
 import com.personalprojects.pdv.infra.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class OrderService {
@@ -21,8 +25,9 @@ public class OrderService {
         this.userRepository = userRepository;
     }
 
-    public Order create(RegisterOrderRequestDTO order) {
-        User user = userRepository.findById(order.getUserId());
+    public RegisterOrderResponseDTO create(RegisterOrderRequestDTO order) {
+
+        User user = userRepository.findById(UUID.fromString(order.getUserId()));
 
         if (user == null) {
             throw new ResourceNotFoundException("Not possible create a new order because a user with this ID not found");
@@ -30,6 +35,6 @@ public class OrderService {
 
         Order newOrder = repository.save(new Order(order.getDate(), user));
 
-        return newOrder;
+        return OrderMapper.toCreateResponse(newOrder);
     }
 }

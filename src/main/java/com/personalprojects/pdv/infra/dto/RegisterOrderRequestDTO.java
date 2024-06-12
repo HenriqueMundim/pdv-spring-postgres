@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
-import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,12 +16,9 @@ import java.util.UUID;
 @Setter
 public class RegisterOrderRequestDTO {
 
-    @NotNull(message = "Date is required")
-    @NotBlank(message = "Date is required")
-    @JsonFormat(pattern = "dd/MM/yyyy 'T' HH:mm:ss")
     private Instant date;
 
     @NotNull(message = "User ID is required")
     @NotBlank(message = "User ID is required")
-    private UUID userId;
+    private String userId;
 }

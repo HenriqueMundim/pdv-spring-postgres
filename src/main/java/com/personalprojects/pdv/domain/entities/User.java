@@ -1,5 +1,6 @@
 package com.personalprojects.pdv.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.personalprojects.pdv.domain.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -78,5 +79,10 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @JsonIgnore
+    public List<Order> getOrders() {
+        return this.orders;
     }
 }

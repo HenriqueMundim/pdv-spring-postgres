@@ -8,13 +8,12 @@ import com.personalprojects.pdv.domain.services.TokenService;
 import com.personalprojects.pdv.infra.dto.AuthenticationDTO;
 import com.personalprojects.pdv.infra.dto.LoginResponseDTO;
 import com.personalprojects.pdv.infra.dto.RegisterUserRequestDTO;
-import com.personalprojects.pdv.infra.dto.RegisterUserResponseDTO;
+import com.personalprojects.pdv.infra.dto.UserDomainOutputDTO;
 import com.personalprojects.pdv.infra.repositories.UserRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -95,7 +94,7 @@ public class AuthenticationController {
                             responseCode = "201",
                             content = {
                                     @Content(
-                                            schema = @Schema(implementation = RegisterUserResponseDTO.class)
+                                            schema = @Schema(implementation = UserDomainOutputDTO.class)
                                     )
                             }
                     ),
@@ -116,7 +115,7 @@ public class AuthenticationController {
             consumes = {"application/json", "application/xml", "application/x-yaml"},
             produces = {"application/json", "application/xml", "application/x-yaml"}
     )
-    public ResponseEntity<RegisterUserResponseDTO> register(@RequestBody @Valid RegisterUserRequestDTO data) {
+    public ResponseEntity<UserDomainOutputDTO> register(@RequestBody @Valid RegisterUserRequestDTO data) {
         User userByEmail = repository.findByEmail(data.getEmail()).orElse(null);
         UserDetails userByUsername = repository.findByUsername(data.getUsername());
 
@@ -131,6 +130,6 @@ public class AuthenticationController {
 
         User newUser = repository.save(new User(data.getName(), data.getUsername(), data.getEmail(), encryptedPassword, data.getRole()));
 
-        return ResponseEntity.ok(new RegisterUserResponseDTO(newUser.getId(), newUser.getName(), newUser.getEmail(), newUser.getUsername()));
+        return ResponseEntity.ok(new UserDomainOutputDTO(newUser.getId(), newUser.getName(), newUser.getEmail(), newUser.getUsername()));
     }
 }

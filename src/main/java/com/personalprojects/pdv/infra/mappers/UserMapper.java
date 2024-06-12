@@ -2,6 +2,7 @@ package com.personalprojects.pdv.infra.mappers;
 
 import com.personalprojects.pdv.domain.entities.User;
 import com.personalprojects.pdv.infra.dto.RegisterUserRequestDTO;
+import com.personalprojects.pdv.infra.dto.UserDomainOutputDTO;
 import com.personalprojects.pdv.infra.dto.UserDTO;
 
 public class UserMapper {
@@ -36,4 +37,15 @@ public class UserMapper {
 
         return userDto;
     }
+
+    public static UserDomainOutputDTO toDomainOutput(User user) {
+        UserDomainOutputDTO userResponse = new UserDomainOutputDTO();
+        userResponse.setId(user.getId());
+        userResponse.setUsername(user.getUsername());
+        userResponse.setName(user.getName());
+        userResponse.setEmail(user.getEmail());
+
+        return userResponse;
+    }
+
 }
