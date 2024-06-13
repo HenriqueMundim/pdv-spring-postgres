@@ -1,5 +1,7 @@
 package com.personalprojects.pdv.domain.errors;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,5 +57,16 @@ public class ResourceExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(exceptionResponse);
+    }
+
+    @ExceptionHandler(TokenVerificationException.class)
+    public ResponseEntity<StandardException> tokenException(TokenVerificationException exception, WebRequest request) {
+        StandardException response = new StandardException(
+                Instant.now(),
+                request.getDescription(false).split("=")[1],
+                exception.getMessage()
+        );
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
 }

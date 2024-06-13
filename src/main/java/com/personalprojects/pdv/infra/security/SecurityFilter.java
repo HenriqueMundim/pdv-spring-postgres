@@ -1,5 +1,6 @@
 package com.personalprojects.pdv.infra.security;
 
+import com.personalprojects.pdv.domain.errors.TokenVerificationException;
 import com.personalprojects.pdv.domain.services.TokenService;
 import com.personalprojects.pdv.infra.repositories.UserRepository;
 import jakarta.servlet.FilterChain;
@@ -24,7 +25,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     UserRepository repository;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException  {
         var token = recoverToken(request);
         if (token != null) {
             var username = service.validateToken(token);

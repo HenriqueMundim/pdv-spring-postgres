@@ -10,7 +10,7 @@ public class OrderMapper {
         newOrder.setId(order.getId());
         newOrder.setDate(order.getDate());
         newOrder.setClient(UserMapper.toDomainOutput(order.getClient()));
-        newOrder.setItens(order.getItems());
+        newOrder.setItems(order.getItems());
 
         return newOrder;
     }

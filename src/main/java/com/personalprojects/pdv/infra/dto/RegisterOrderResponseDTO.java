@@ -23,5 +23,5 @@ public class RegisterOrderResponseDTO {
 
     private Instant date;
 
-    private Set<OrderItem> itens = new HashSet<>();
+    private Set<OrderItem> items = new HashSet<>();
 }
