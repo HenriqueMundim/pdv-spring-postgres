@@ -1,5 +1,9 @@
 package com.personalprojects.pdv.infra.security;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.personalprojects.pdv.domain.errors.StandardException;
 import com.personalprojects.pdv.domain.errors.TokenVerificationException;
 import com.personalprojects.pdv.domain.services.TokenService;
@@ -52,14 +56,18 @@ public class SecurityFilter extends OncePerRequestFilter {
     }
 
     private void handleFilterException(Exception exception, HttpServletRequest request, HttpServletResponse response) throws IOException {
-
         response.setStatus(403);
         response.setContentType("application/json");
-
+        StandardException errorResponse = new StandardException(Instant.now(), request.getRequestURI(), exception.getMessage());
         PrintWriter out = response.getWriter();
-        String errorResponse = new StandardException(Instant.now(), request.getRequestURI(), exception.getMessage()).toString();
-        out.print("{" + errorResponse + "}");
-
+        out.write(jsonConverter(errorResponse));
         out.flush();
+    }
+
+    private String jsonConverter(StandardException object) throws JsonProcessingException {
+        ObjectMapper mapper = JsonMapper.builder()
+                .addModule(new JavaTimeModule())
+                .build();
+        return mapper.writeValueAsString(object);
     }
 }
