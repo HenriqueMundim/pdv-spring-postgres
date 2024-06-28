@@ -5,6 +5,7 @@ import com.personalprojects.pdv.infra.daos.OrderJpaDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,6 +25,10 @@ public class OrderRepository {
 
     public Optional<Order> findById(UUID id) {
         return this.dao.findById(id);
+    }
+
+    public Optional<List<Order>> findOrderByUser(UUID id) {
+        return dao.findOrderByUser(id);
     }
 
 }

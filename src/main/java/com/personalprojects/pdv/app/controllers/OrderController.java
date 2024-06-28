@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Tag(name = "Order")
@@ -92,5 +93,47 @@ public class OrderController {
     )
     public ResponseEntity<RegisterOrderResponseDTO> findById(@PathVariable UUID id) {
         return ResponseEntity.ok().body(service.findById(id));
+    }
+
+
+    @Operation(
+            description = "Endpoint responsible to find user's orders",
+            summary = "Find all user's orders",
+            responses = {
+                    @ApiResponse(
+                            description = "Orders found",
+                            responseCode = "200",
+                            content = {
+                                    @Content(
+                                            schema = @Schema(implementation = RegisterOrderResponseDTO.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            description = "Orders not found",
+                            responseCode = "404",
+                            content = {
+                                    @Content(
+                                            schema = @Schema(implementation = StandardException.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            description = "User not found",
+                            responseCode = "404",
+                            content = {
+                                    @Content(
+                                            schema = @Schema(implementation = StandardException.class)
+                                    )
+                            }
+                    )
+            }
+    )
+    @GetMapping(
+            value = "/user/{id}",
+            produces = {"application/json", "application/xml", "application/x-yaml"}
+    )
+    public ResponseEntity<List<RegisterOrderResponseDTO>> findByUser(@PathVariable UUID id) {
+        return ResponseEntity.ok().body(service.findByUser(id));
     }
 }

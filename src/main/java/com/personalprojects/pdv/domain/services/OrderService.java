@@ -11,6 +11,7 @@ import com.personalprojects.pdv.infra.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -46,5 +47,21 @@ public class OrderService {
         }
 
         return OrderMapper.toCreateResponse(order);
+    }
+
+    public List<RegisterOrderResponseDTO> findByUser(UUID id) {
+        User user = userRepository.findById(id);
+
+        if (user == null) {
+            throw new ResourceNotFoundException("User with ID" + id + " not found");
+        }
+
+        List<Order> orders = repository.findOrderByUser(id).orElse(null);
+
+        if (user == orders) {
+            throw new ResourceNotFoundException("User with ID" + id + " don't have orders");
+        }
+
+        return orders.stream().map(OrderMapper::toCreateResponse).toList();
     }
 }
