@@ -13,10 +13,9 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @Tag(name = "Order")
 @RestController
@@ -60,5 +59,38 @@ public class OrderController {
     )
     public ResponseEntity<RegisterOrderResponseDTO> create(@RequestBody @Valid RegisterOrderRequestDTO order) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(order));
+    }
+
+
+    @Operation(
+            description = "Endpoint responsible to find a order",
+            summary = "Find order by ID",
+            responses = {
+                    @ApiResponse(
+                            description = "Order found",
+                            responseCode = "200",
+                            content = {
+                                    @Content(
+                                            schema = @Schema(implementation = RegisterOrderResponseDTO.class)
+                                    )
+                            }
+                    ),
+                    @ApiResponse(
+                            description = "Order not found",
+                            responseCode = "404",
+                            content = {
+                                    @Content(
+                                            schema = @Schema(implementation = StandardException.class)
+                                    )
+                            }
+                    )
+            }
+    )
+    @GetMapping(
+            value = "/{id}",
+            produces = {"application/json", "application/xml", "application/x-yaml"}
+    )
+    public ResponseEntity<RegisterOrderResponseDTO> findById(@PathVariable UUID id) {
+        return ResponseEntity.ok().body(service.findById(id));
     }
 }

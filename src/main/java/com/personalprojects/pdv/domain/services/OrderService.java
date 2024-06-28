@@ -37,4 +37,14 @@ public class OrderService {
 
         return OrderMapper.toCreateResponse(newOrder);
     }
+
+    public RegisterOrderResponseDTO findById(UUID id) {
+        Order order = repository.findById(id).orElse(null);
+
+        if (order == null) {
+            throw new ResourceNotFoundException("Order with ID: " + id + "not found");
+        }
+
+        return OrderMapper.toCreateResponse(order);
+    }
 }

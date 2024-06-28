@@ -2,6 +2,9 @@ package com.personalprojects.pdv.domain.interfaces;
 
 import com.personalprojects.pdv.domain.entities.Order;
 
+import java.util.UUID;
+
 public interface IOrderRepository {
     Order save(Order order);
+    Order findById(UUID id);
 }

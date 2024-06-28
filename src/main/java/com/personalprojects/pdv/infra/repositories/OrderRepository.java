@@ -5,6 +5,9 @@ import com.personalprojects.pdv.infra.daos.OrderJpaDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Repository
 public class OrderRepository {
 
@@ -17,6 +20,10 @@ public class OrderRepository {
 
     public Order save(Order order) {
         return this.dao.save(order);
+    }
+
+    public Optional<Order> findById(UUID id) {
+        return this.dao.findById(id);
     }
 
 }
