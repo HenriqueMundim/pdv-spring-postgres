@@ -136,4 +136,13 @@ public class OrderController {
     public ResponseEntity<List<RegisterOrderResponseDTO>> findByUser(@PathVariable UUID id) {
         return ResponseEntity.ok().body(service.findByUser(id));
     }
+
+    @DeleteMapping(
+            value = "/{id}",
+            produces = {"application/json", "application/xml", "application/x-yaml"}
+    )
+    public ResponseEntity<?> delete(@PathVariable UUID id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

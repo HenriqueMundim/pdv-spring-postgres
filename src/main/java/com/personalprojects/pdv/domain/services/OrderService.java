@@ -64,4 +64,14 @@ public class OrderService {
 
         return orders.stream().map(OrderMapper::toCreateResponse).toList();
     }
+
+    public void delete(UUID id) {
+        Order order = repository.findById(id).orElse(null);
+
+        if (order == null) {
+            throw new ResourceNotFoundException("Order with ID" + id + " not found");
+        }
+
+        repository.deleteById(id);
+    }
 }

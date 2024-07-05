@@ -9,4 +9,5 @@ public interface IOrderRepository {
     Order save(Order order);
     Order findById(UUID id);
     List<Order> findOrderByUser(UUID id);
+    void deleteById(UUID id);
 }

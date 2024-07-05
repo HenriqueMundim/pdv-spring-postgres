@@ -31,4 +31,8 @@ public class OrderRepository {
         return dao.findOrderByUser(id);
     }
 
+    public void deleteById(UUID id) {
+        dao.deleteById(id);
+    }
+
 }
